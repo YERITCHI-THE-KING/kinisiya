@@ -1,0 +1,601 @@
+/* style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Tajawal', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0c29, #1a1a2e, #16213e);
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* الهيدر */
+header {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: all 0.3s;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    color: #fff;
+}
+
+/* الهيرو */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,0,193,0.1) 0%, transparent 50%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 5em;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* الأزرار */
+.btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 0, 193, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #ff00c1;
+    color: #ff00c1;
+}
+
+.btn-outline:hover {
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    color: #fff;
+    border-color: transparent;
+}
+
+/* المميزات */
+.features {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2.5em;
+    margin-bottom: 60px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 40px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 0, 193, 0.2);
+    transition: all 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff00c1;
+    box-shadow: 0 0 30px rgba(255, 0, 193, 0.3);
+}
+
+.feature-card .icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #ff00c1;
+}
+
+.feature-card p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* الإحصائيات */
+.stats {
+    background: linear-gradient(135deg, rgba(255,0,193,0.1), rgba(150,0,255,0.1));
+    padding: 60px 20px;
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3.5em;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* قسم Nova */
+.nova-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+.nova-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.nova-content h2 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nova-content p {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* صفحات المنتج */
+.page-header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.page-header h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-header p {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* بطاقات الأسعار */
+.pricing-section {
+    padding: 40px 20px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.pricing-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 40px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 0, 193, 0.2);
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff00c1;
+    box-shadow: 0 0 30px rgba(255, 0, 193, 0.3);
+}
+
+.pricing-card.popular {
+    border: 2px solid #ff00c1;
+    transform: scale(1.05);
+}
+
+.pricing-card.popular:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    padding: 5px 20px;
+    border-radius: 30px;
+    font-size: 0.9em;
+    color: #fff;
+}
+
+.pricing-card h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #ff00c1;
+}
+
+.price {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.price span {
+    font-size: 0.4em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.pricing-card ul {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.pricing-card ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pricing-card ul li:last-child {
+    border-bottom: none;
+}
+
+/* صفحة Nova Ultra */
+.product-header {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, rgba(255,0,193,0.2), rgba(150,0,255,0.2));
+}
+
+.product-header h1 {
+    font-size: 4.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.product-tagline {
+    font-size: 1.8em;
+    color: #ff00c1;
+    margin-top: 20px;
+}
+
+.advanced-features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.advanced-features h2 {
+    font-size: 2.5em;
+    margin-bottom: 60px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.features-list {
+    display: grid;
+    gap: 30px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 0, 193, 0.1);
+    transition: all 0.3s;
+    text-align: right;
+}
+
+.feature-item:hover {
+    border-color: #ff00c1;
+    transform: translateX(-10px);
+}
+
+.feature-icon {
+    font-size: 3em;
+    min-width: 80px;
+    text-align: center;
+}
+
+.feature-text h3 {
+    font-size: 1.5em;
+    color: #ff00c1;
+    margin-bottom: 10px;
+}
+
+.feature-text p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1em;
+}
+
+.subscription-plans {
+    background: linear-gradient(135deg, rgba(255,0,193,0.1), rgba(150,0,255,0.1));
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.subscription-plans h2 {
+    font-size: 2.5em;
+    margin-bottom: 60px;
+    background: linear-gradient(45deg, #ff00c1, #9600ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.plans-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.plan-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 40px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 0, 193, 0.2);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff00c1;
+    box-shadow: 0 0 30px rgba(255, 0, 193, 0.3);
+}
+
+.plan-card.popular {
+    border: 2px solid #ff00c1;
+    transform: scale(1.05);
+}
+
+.plan-card.popular:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.plan-card h3 {
+    font-size: 2em;
+    color: #ff00c1;
+    margin-bottom: 20px;
+}
+
+.plan-price {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.plan-card ul {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.plan-card ul li {
+    padding: 10px 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* الفوتر */
+footer {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 60px 20px 20px;
+    border-top: 1px solid rgba(255, 0, 193, 0.2);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h4 {
+    font-size: 1.3em;
+    color: #ff00c1;
+    margin-bottom: 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #ff00c1;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* استايلات متجاوبة */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8em;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .feature-item:hover {
+        transform: translateY(-10px);
+    }
+    
+    .pricing-card.popular {
+        transform: scale(1);
+    }
+    
+    .pricing-card.popular:hover {
+        transform: translateY(-10px);
+    }
+    
+    .plan-card.popular {
+        transform: scale(1);
+    }
+}
