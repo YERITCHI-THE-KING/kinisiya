@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة العميل - سيرفراتي</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .client-login {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #ff00c1;
+        }
+        
+        .client-dashboard {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .server-info {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid #ff00c1;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,0,193,0.2);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #ff00c1;
+            font-weight: bold;
+        }
+        
+        .info-value {
+            font-family: monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            direction: ltr;
+        }
+        
+        .countdown {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,215,0,0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .days-left {
+            font-size: 3em;
+            color: gold;
+        }
+        
+        .warning {
+            background: rgba(255,68,68,0.2);
+            border: 1px solid #ff4444;
+            padding: 15px;
+            border-radius: 10px;
+            color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div id="clientLoginPage" class="client-login">
+        <h2 style="color:#ff00c1; text-align:center; margin-bottom:30px">🔐 دخول العميل</h2>
+        <form id="clientLoginForm">
+            <div class="form-group">
+                <label>رقم الجوال (اللي أرسلت عليه SMS)</label>
+                <input type="tel" id="clientPhone" placeholder="05xxxxxxxx" required>
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" id="clientPassword" required>
+            </div>
+            <button type="submit" class="btn" style="width:100%">دخول</button>
+        </form>
+        <p style="text-align:center; margin-top:20px; color:#888">
+            ماعندك حساب؟ تواصل مع المطور <a href="https://t.me/yekay6" style="color:#ff00c1">@yekay6</a>
+        </p>
+    </div>
+
+    <div id="clientDashboardPage" class="client-dashboard hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px">
+            <h1>🚀 سيرفراتي</h1>
+            <button class="btn-small" onclick="logout()">تسجيل خروج</button>
+        </div>
+
+        <div id="clientServerInfo" class="server-info"></div>
+        
+        <div style="margin-top:30px; text-align:center">
+            <p>للحصول على الدعم الفني: <a href="https://t.me/yekay6" style="color:#ff00c1">@yekay6</a></p>
+        </div>
+    </div>
+
+    <script>
+        // بيانات العملاء (تتزامن مع بيانات المطور)
+        let clients = JSON.parse(localStorage.getItem('servers')) || [];
+
+        document.getElementById('clientLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('clientPhone').value;
+            const password = document.getElementById('clientPassword').value;
+            
+            // البحث عن العميل
+            const client = clients.find(c => c.password === password);
+            
+            if(client) {
+                document.getElementById('clientLoginPage').classList.add('hidden');
+                document.getElementById('clientDashboardPage').classList.remove('hidden');
+                showClientServer(client);
+            } else {
+                alert('❌ بيانات الدخول غلط');
+            }
+        });
+
+        function showClientServer(server) {
+            const daysLeft = calculateDaysLeft(server.expiryDate);
+            const isExpired = daysLeft <= 0;
+            
+            let html = `
+                <h2 style="color:#ff00c1; margin-bottom:20px">مرحباً ${server.clientName}</h2>
+                
+                <div class="countdown">
+                    <div>المتبقي من الاشتراك</div>
+                    <div class="days-left">${daysLeft > 0 ? daysLeft : 0}</div>
+                    <div>يوم</div>
+                </div>
+                
+                ${isExpired ? '<div class="warning">⚠️ اشتراكك منتهي - تواصل مع المطور للتجديد</div>' : ''}
+                
+                <h3 style="margin:30px 0 20px">📡 بيانات السيرفر</h3>
+            `;
+            
+            for(let [key, value] of Object.entries(server)) {
+                if(['clientName', 'telegram', 'plan', 'ip', 'username', 'password', 'expiryDate'].includes(key)) {
+                    let label = {
+                        clientName: 'اسم العميل',
+                        telegram: 'تيليجرام',
+                        plan: 'الباقة',
+                        ip: 'عنوان IP',
+                        username: 'اسم المستخدم',
+                        password: 'كلمة المرور',
+                        expiryDate: 'تاريخ الانتهاء'
+                    }[key];
+                    
+                    let valueClass = key === 'password' ? 'server-password' : 'info-value';
+                    
+                    html += `
+                        <div class="info-row">
+                            <span class="info-label">${label}:</span>
+                            <span class="${valueClass}">${value}</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            html += `
+                <div style="margin-top:30px; text-align:center">
+                    <button class="btn" onclick="copyServerData('${server.password}')">📋 نسخ جميع البيانات</button>
+                </div>
+            `;
+            
+            document.getElementById('clientServerInfo').innerHTML = html;
+        }
+
+        function calculateDaysLeft(expiryDate) {
+            const today = new Date();
+            const expiry = new Date(expiryDate);
+            const diffTime = expiry - today;
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        function copyServerData(password) {
+            const server = clients.find(c => c.password === password);
+            const data = `
+IP: ${server.ip}
+User: ${server.username}
+Pass: ${server.password}
+تاريخ الانتهاء: ${server.expiryDate}
+            `;
+            navigator.clipboard.writeText(data);
+            alert('✅ تم نسخ البيانات');
+        }
+
+        function logout() {
+            document.getElementById('clientLoginPage').classList.remove('hidden');
+            document.getElementById('clientDashboardPage').classList.add('hidden');
+        }
+    </script>
+</body>
+  </html>
